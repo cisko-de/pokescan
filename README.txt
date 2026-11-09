@@ -1,4 +1,7 @@
-PokéScan v0.8 – GitHub Pages PWA
-Install: replace index.html, style.css, app.js, sw.js, manifest.webmanifest and icons/ in repository root. Backup before upgrade.
-New: robust bilingual suggestions, match score, complete backup with photos, CSV, wishlist, local profile/themes, purchase price, tags, trade/sale, grading, change history.
-Not yet implemented: image embedding AI, automatic Shadowless classification, cloud sync, push price alerts, automatic price history, bulk editing, page-flip binder, photo crop editor. Prices depend on third-party availability and rights.
+PokéScan v1.0 – UI & Profile Edition
+
+GitHub Pages: Alle Dateien im Repository-Root hochladen.
+Neu: modale Albumverwaltung und Kartenzuordnung, Profil mit lokalem Bild, Wunschlistenformular, harmonisierte Schaltflächen und responsive Suchtreffer.
+Native Dateiauswahl und Browser-Berechtigungsfenster können nicht mit CSS umgestaltet werden.
+WICHTIG: Daten vor Update sichern; Fotos bleiben im lokalen Browser, solange keine Daten gelöscht werden.
+OCR und bildbasierte Kartenerkennung sind weiterhin experimentell, keine zuverlässige KI-Bildklassifikation.
