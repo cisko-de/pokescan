@@ -1,1 +1,4 @@
-PokéScan v0.6 – Update: Alle Dateien außer Icons auf GitHub ersetzen. Vorher JSON-Backup erstellen. Eigene Fotos werden lokal in IndexedDB gespeichert und sind NICHT im JSON-Backup enthalten. Kartenbilder beim Wechsel des Geräts separat sichern. OCR braucht Internet zum Laden von Tesseract.js. API-Suche benötigt Internet. Keine garantierten Cardmarket-Livepreise.
+PokéScan v0.8 – GitHub Pages PWA
+Install: replace index.html, style.css, app.js, sw.js, manifest.webmanifest and icons/ in repository root. Backup before upgrade.
+New: robust bilingual suggestions, match score, complete backup with photos, CSV, wishlist, local profile/themes, purchase price, tags, trade/sale, grading, change history.
+Not yet implemented: image embedding AI, automatic Shadowless classification, cloud sync, push price alerts, automatic price history, bulk editing, page-flip binder, photo crop editor. Prices depend on third-party availability and rights.
