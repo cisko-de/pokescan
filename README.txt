@@ -1,3 +1,6 @@
+POKÉSCAN 2.2
+Aktuelles Update: UPDATE-2.2.md
+
 POKÉSCAN 2.1
 
 Aktuelle Installation, Änderungen, Sprachmodelle und Testgrenzen: UPDATE-2.1.md

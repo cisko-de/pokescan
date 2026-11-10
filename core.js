@@ -37,8 +37,26 @@
     return{price:cm[used+suffix],source:'TCGdex / Cardmarket · '+variantLabel(c)+' · '+labels[used],date:priceDate(cm.updated),observedAt:new Date().toISOString(),metric:used,low:cm['low'+suffix]??null,avg7:cm['avg7'+suffix]??null,avg30:cm['avg30'+suffix]??null};
   }
   function usdQuote(data,c){if(shadowless(c)||edition(c)==='unknown'||c.grader)return null;const tp=data?.pricing?.tcgplayer;if(!tp||(tp.unit||'USD')!=='USD')return null;const f=finish(c),first=edition(c)==='first';const key=first?(f==='Holo'?'1st-edition-holofoil':f==='Normal'?'1st-edition':null):({'Normal':'normal','Holo':'holofoil','Reverse Holo':'reverse-holofoil'})[f];if(!key)return null;const v=tp[key]?.marketPrice;if(typeof v!=='number'||!Number.isFinite(v)||v<0)return null;return{price:v,currency:'USD',variant:key,date:priceDate(tp.updated)};}
-  function ocrName(lines){const reject=/^(basic|basis|stage|phase|stufe|pokemon|pokémon|trainer|supporter|item|hp|kp|weakness|schwäche|resistance|resistenz|retreat|rückzug|ability|fähigkeit|illus|copyright|©|no\.|energy|energie|evolves|entwickelt|from|von|regel)(?:\s|$)/i;return lines.map(x=>x.replace(/^(?:BASIC|BASIS|STAGE\s*[12]|PHASE\s*[12]|STUFE\s*[12])\s*/i,'').replace(/\s*(?:(?:HP|KP|PS)\s*\d+|\d+\s*(?:HP|KP|PS)).*$/i,'').replace(/[^\p{L}\p{N}♀♂'.: −-]/gu,' ').trim()).find(x=>x.length>=2&&x.length<=48&&!reject.test(x)&&(/[\p{L}]{3}/u.test(x)||/[\p{Script=Han}\p{Script=Hangul}\p{Script=Hiragana}\p{Script=Katakana}]{2}/u.test(x))&&!/^\d|\d{3}/.test(x))||'';}
+  function ocrName(lines){const reject=/^(basic|basis|stage|phase|stufe|pokemon|pokémon|trainer|supporter|item|hp|kp|weakness|schwäche|resistance|resistenz|retreat|rückzug|ability|fähigkeit|illus|copyright|©|no\.|energy|energie|evolves|entwickelt|from|von|regel)(?:\s|$)/i;return lines.map(x=>x.replace(/^(?:BASIC|BASIS|STAGE\s*[12]|PHASE\s*[12]|STUFE\s*[12])\s*/i,'').replace(/\s*(?:(?:HP|KP|PS)\s*\d+|\d+\s*(?:HP|KP|PS)).*$/i,'').replace(/[^\p{L}\p{N}♀♂'.: −-]/gu,' ').replace(/\s+\d+\s*$/, '').replace(/\s+/g,' ').trim()).find(x=>x.length>=2&&x.length<=48&&!reject.test(x)&&(/[\p{L}]{3}/u.test(x)||/[\p{Script=Han}\p{Script=Hangul}\p{Script=Hiragana}\p{Script=Katakana}]{2}/u.test(x))&&!/^\d|\d{3}/.test(x))||'';}
   function ocrNumber(text){const original=numberFrom(text);if(original)return original;return numberFrom(String(text).replace(/([0-9OIl|]{1,4})\s*\/\s*([0-9OIl|]{1,4})/g,(_,a,b)=>a.replace(/[O]/g,'0').replace(/[Il|]/g,'1')+'/'+b.replace(/[O]/g,'0').replace(/[Il|]/g,'1')));}
+  function resolveOCRTitle(reads,index){
+    const ranked=reads.map(o=>{
+      const exact=index.find(c=>norm(c.name)===norm(o.name));
+      const words=o.name.split(/\s+/).map(norm);
+      const contained=exact||index.filter(c=>norm(c.name).length>=3&&words.includes(norm(c.name))).sort((a,b)=>norm(b.name).length-norm(a.name).length)[0];
+      return {...o,card:contained,exact:!!exact};
+    }).filter(o=>o.card).sort((a,b)=>Number(b.exact)-Number(a.exact)||b.confidence-a.confidence);
+    return ranked[0]?.card.name||'';
+  }
+  function albumCards(cards,album){
+    const related=cards.filter(c=>c.albumIds?.includes(album.id));
+    const order=new Map((Array.isArray(album.cardOrder)?album.cardOrder:[]).map((id,i)=>[id,i]));
+    return related.sort((a,b)=>(order.get(a.id)??Infinity)-(order.get(b.id)??Infinity));
+  }
+  function moveInAlbum(list,id,index){
+    const ids=list.map(c=>typeof c==='string'?c:c.id),from=ids.indexOf(id);
+    if(from<0)return ids;ids.splice(from,1);ids.splice(Math.max(0,Math.min(ids.length,index)),0,id);return ids;
+  }
   function validateBackup(data) {
     if (!data || !['pokescan-backup-v1','pokescan-backup-v2','pokescan-backup-v3','pokescan-backup-v4'].includes(data.format) || !Array.isArray(data.cards) || data.cards.length > 15000) throw Error('Unbekanntes oder zu großes Backup.');
     const ids = new Set();
@@ -54,7 +72,7 @@
     const extras = data.extras && typeof data.extras==='object' ? data.extras : null;
     return {cards,albums,photos,extras};
   }
-  const api = {norm,collectorId,numberFrom,similarity,edition,finish,shadowless,duplicateKey,variantLabel,priceQuote,priceDate,usdQuote,ocrName,ocrNumber,validateBackup};
+  const api = {norm,collectorId,numberFrom,similarity,edition,finish,shadowless,duplicateKey,variantLabel,priceQuote,priceDate,usdQuote,ocrName,ocrNumber,resolveOCRTitle,albumCards,moveInAlbum,validateBackup};
   root.PokeCore = api;
   if(typeof module!=='undefined')module.exports=api;
 })(globalThis);
