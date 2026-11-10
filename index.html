@@ -1,13 +1,398 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a0b14"><meta name="description" content="PokéScan – Karten scannen, Alben erstellen und Sammlung organisieren"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icons/icon-192.png"><link rel="stylesheet" href="style.css"><title>PokéScan · Dein Card Vault</title></head><body><svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs><symbol id="ic-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 17 .8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8L19 17Z"/></symbol><symbol id="ic-camera" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h-4L8 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-4l-2-3Z"/><circle cx="12" cy="13" r="3"/></symbol><symbol id="ic-image" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></symbol><symbol id="ic-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3Z"/></symbol><symbol id="ic-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></symbol><symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7.5"/><path d="m16 16 5 5"/></symbol><symbol id="ic-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"/></symbol><symbol id="ic-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol><symbol id="ic-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"/><circle cx="12" cy="12" r="4"/></symbol><symbol id="ic-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2 6"/><path d="M20 4v7h-7"/></symbol><symbol id="ic-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/></symbol><symbol id="ic-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-4 4 4-4 4 4M4 17v4h16v-4"/></symbol><symbol id="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 19 19M19 5 5 19"/></symbol><symbol id="ic-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="ic-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3 6 7 .9-5 4.9 1.2 7L12 17.5 5.8 21l1.2-7L2 8.9 9 8Z"/></symbol><symbol id="ic-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5h5m6 0h5v4M4 15v4h5m6 0h5v-4M7 12h10"/></symbol><symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"/></symbol><symbol id="ic-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol><symbol id="ic-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M4 12h16"/></symbol><symbol id="ic-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7a3 3 0 0 1 3 3v14H7a3 3 0 0 0-3 0Zm16 0h-3a3 3 0 0 0-3 3v14h3a3 3 0 0 1 3 0Z"/></symbol></defs></svg>
-<header class="top"><div class="brand"><div class="brand-icon"><svg class="ico" aria-hidden="true"><use href="#ic-sparkles"></use></svg></div><div><strong>Poké<span>Scan</span></strong><small>YOUR PERSONAL CARD VAULT</small></div></div><div class="top-right"><span class="version-pill">COLLECTOR EDITION</span><span class="online" id="network">● Online</span><button id="profileTrigger" class="profile-trigger" type="button" aria-label="Sammlerprofil öffnen"><span id="topAvatar" class="avatar">PS</span><span class="profile-label"><b id="topUsername">Sammler</b><small>Mein Profil</small></span></button></div></header>
-<main><section id="home" class="view"><div class="eyebrow">DEIN SAMMLER-DASHBOARD <span class="tag">V 1.2</span></div><h1>Deine Karten.<br><em>Deine Welt.</em></h1><div class="hero"><div class="hero-glow"></div><div class="hero-content"><small>ERFASSTER REFERENZWERT</small><div class="hero-value" id="total">–</div><p>Nur Karten mit verfügbarem Referenzpreis · kein Verkaufswert</p><div class="hero-stats"><div><b id="count">0</b><small>Karten</small></div><div><b id="unique">0</b><small>Einträge</small></div><div><b id="albumCount">0</b><small>Alben</small></div></div></div></div><div class="section-head"><h2>Schnellzugriff</h2></div><div class="quick-grid"><button class="quick" data-go="add"><span class="quick-icon"><svg class="ico" aria-hidden="true"><use href="#ic-scan"></use></svg></span><b>Karte scannen</b><small>Neue Karte erfassen</small></button><button class="quick" data-go="albums"><span class="quick-icon"><svg class="ico" aria-hidden="true"><use href="#ic-folder"></use></svg></span><b>Meine Alben</b><small>Sammlung sortieren</small></button></div><div class="section-head"><h2>Zuletzt hinzugefügt</h2><button class="text-btn" data-go="collection">Alle ansehen →</button></div><div id="recent" class="card-grid"></div><div class="dashboard-tip">Tipp: Tippe auf eine Karte, um Details anzusehen, sie zu bearbeiten oder Alben zu verwalten.</div></section>
-<section id="collection" class="view hidden"><div class="section-head"><div><div class="eyebrow">DEIN INVENTAR</div><h1>Sammlung</h1></div><button class="round-add" data-go="add" aria-label="Karte hinzufügen">+</button></div><input id="search" class="search" placeholder="⌕  Karten, Sets, Nummern suchen …" aria-label="Sammlung durchsuchen"><div class="chips" id="filters"><button class="chip active" data-filter="all">Alle</button><button class="chip" data-filter="favorites"><svg class="ico" aria-hidden="true"><use href="#ic-heart"></use></svg> Favoriten</button><button class="chip" data-filter="priced">€ Mit Preis</button></div><div class="sort-line"><span id="resultCount">0 Karten</span><select id="sort" aria-label="Sortieren"><option value="new">Neueste zuerst</option><option value="name">Name A–Z</option><option value="value">Höchster Preis</option></select></div><div class="collection-tools"><button id="showDuplicates" class="btn secondary" type="button">Doppelte Karten prüfen</button><button id="clearDuplicateFilter" class="btn ghost hidden" type="button">Alle Karten anzeigen</button></div><div id="cards" class="card-grid"></div></section>
-<section id="albums" class="view hidden"><div class="section-head"><div><div class="eyebrow">ORGANISIERE DEINE SCHÄTZE</div><h1>Alben</h1></div><button id="newAlbum" class="round-add" aria-label="Neues Album">+</button></div><p class="muted">Ordne Karten mehreren Alben zu – etwa Lieblingskarten, Tauschordner oder Base Set.</p><div class="album-help">Erstelle einen Ordner und tippe bei einer Karte auf „Album“, um sie zuzuordnen. Eine Karte kann in mehreren Ordnern liegen.</div><div id="albumList" class="album-grid"></div><div id="albumDetail" class="hidden"><button id="backAlbums" class="text-btn">← Alle Alben</button><div class="album-detail-head"><h2 id="albumTitle"></h2><button id="editAlbum" class="btn secondary">Album bearbeiten</button></div><div id="albumCards" class="card-grid"></div></div></section>
-<section id="add" class="view hidden"><div class="eyebrow">KARTEN-STUDIO</div><h1>Neue Karte</h1><p class="muted">Scannen, identifizieren und deiner Sammlung hinzufügen.</p><form id="cardForm"><div class="panel"><div class="source-grid"><label class="source-tile" for="cameraPhoto"><span><svg class="ico" aria-hidden="true"><use href="#ic-camera"></use></svg></span><b>Kamera</b><small>Foto aufnehmen</small><input type="file" id="cameraPhoto" accept="image/*" capture="environment"></label><label class="source-tile" for="photo"><span><svg class="ico" aria-hidden="true"><use href="#ic-image"></use></svg></span><b>Galerie / Dateien</b><small>Bild auswählen</small><input type="file" id="photo" accept="image/*" multiple></label></div><img id="preview" class="preview hidden" alt="Foto deiner Karte"><button type="button" id="scan" class="btn secondary"><svg class="ico" aria-hidden="true"><use href="#ic-scan"></use></svg> Text aus Foto erkennen</button><p id="scanStatus" class="hint" role="status">OCR benötigt beim ersten Start Internet. Für eine bessere Erkennung die Karte gerade und vollständig fotografieren.</p><div class="scan-tools"><button type="button" class="btn secondary" id="rotateScan">Bild um 90° drehen</button><button type="button" class="btn secondary" id="scannerInfo">OCR-Ergebnis prüfen</button></div><div id="ocrInspector" class="ocr-inspector hidden"><h3>Erkannte Daten kontrollieren</h3><p class="hint">Die Texterkennung kann Fehler machen. Übernimm nur passende Vorschläge.</p><div id="ocrCandidates" class="candidate-list"></div><details><summary>Erkannten Rohtext anzeigen</summary><pre id="ocrRaw"></pre></details></div></div><div class="panel"><h3>Kartendetails</h3><p class="hint">Kartennummer und Set können auch ohne erkannten Namen gesucht werden.</p><label>Name *<input id="name" required maxlength="100" placeholder="z. B. Glurak"></label><div class="two"><label>Set<input id="set" maxlength="100" placeholder="Basis-Set"></label><label>Nummer<input id="number" maxlength="30" placeholder="4/102"></label></div><button type="button" id="identify" class="btn secondary"><svg class="ico" aria-hidden="true"><use href="#ic-search"></use></svg> Passende Karten suchen</button><p id="matchStatus" class="hint" role="status">Name und/oder Kartennummer eingeben und suchen. Treffer anhand von Bild, Set und Druckvariante bestätigen.</p><div class="scan-queue hidden" id="scanQueue"><span id="scanQueueInfo"></span><button type="button" class="btn secondary" id="scanNext">Nächstes Bild</button></div><div class="match-toolbar"><span>Suchergebnisse · Tippe auf das passende Kartenbild</span><span id="matchCounter"></span></div><details id="matchesDisclosure" class="results-disclosure" open><summary>Vorschläge anzeigen / ausblenden <span id="resultsHint">Bilder vergleichen und Treffer auswählen</span></summary><div id="matches" class="matches"></div></details><div id="selectedCard" class="hint"></div></div><div class="panel"><h3>Bewertung & Einordnung</h3><div id="priceResult" class="price-box">Noch kein Referenzpreis verfügbar.</div><button type="button" id="priceRefresh" class="btn ghost"><svg class="ico" aria-hidden="true"><use href="#ic-refresh"></use></svg> Preis erneut abrufen</button><label>Notizen (optional)<textarea id="notes" maxlength="1500" rows="3" placeholder="Besonderheiten, Fundort, Zustand ..."></textarea></label><div class="two"><label>Sprache<select id="language"><option>Deutsch</option><option>Englisch</option><option>Japanisch</option><option>Andere</option></select></label><label>Variante<select id="variant"><option>Normal</option><option>Holo</option><option>Reverse Holo</option><option>1st Edition</option><option>Shadowless</option><option>Andere</option></select></label></div><div class="two"><label>Zustand<select id="condition"><option>Near Mint</option><option>Excellent</option><option>Good</option><option>Light Played</option><option>Played</option><option>Poor</option></select></label><label>Anzahl<input id="quantity" type="number" min="1" max="9999" value="1" required></label></div><label>Album<select id="albumSelect"><option value="">Kein Album</option></select></label><label class="checkrow"><input type="checkbox" id="favorite"> Als Favorit markieren</label></div><button type="submit" class="btn primary wide">Karte in Sammlung speichern →</button></form><p class="hint">Dein eigenes Foto wird dauerhaft lokal auf diesem Gerät gespeichert. Es erscheint als Ersatzbild, falls kein Datenbankbild vorhanden ist. Sichere wichtige Fotos separat.</p></section>
-<section id="favorites" class="view hidden"><div class="eyebrow">DEINE HIGHLIGHTS</div><h1><svg class="ico" aria-hidden="true"><use href="#ic-heart"></use></svg> Favoriten</h1><div id="favoriteCards" class="card-grid"></div></section>
-<section id="settings" class="view hidden"><div class="eyebrow">DEIN POKÉSCAN</div><h1>Einstellungen</h1><div class="panel"><h3>Deine Daten</h3><p class="muted">Alles wird lokal auf diesem Gerät gespeichert. Browserdaten löschen kann deine Sammlung entfernen. Sichere sie regelmäßig.</p><button id="export" class="btn primary wide"><svg class="ico" aria-hidden="true"><use href="#ic-download"></use></svg> Komplettes Backup herunterladen</button><label class="import btn secondary"><svg class="ico" aria-hidden="true"><use href="#ic-upload"></use></svg> Backup importieren<input type="file" id="import" accept="application/json,.json"></label></div><div class="panel"><h3>App & Updates</h3><p class="muted">PokéScan 1.2 · GitHub Pages · Offline-Basis</p><button id="refresh" class="btn secondary"><svg class="ico" aria-hidden="true"><use href="#ic-refresh"></use></svg> App auf Updates prüfen</button><p id="updateStatus" class="hint"></p></div><div class="panel"><h3>Diagnose</h3><p class="muted">Prüfe den lokalen Speicher, deine Fotos und die Verbindung zur Kartendatenbank.</p><button id="diagnose" class="btn secondary" type="button">App überprüfen</button><div id="diagnosticResult" class="diagnostic-result" role="status"></div></div><div class="panel"><h3>Preise & Datenschutz</h3><p class="muted">TCGdex-Referenzpreise sind nicht garantiert verfügbar und nicht zustands- oder sprachspezifisch. Cardmarket-Werte nur, soweit von der Quelle rechtmäßig bereitgestellt. OCR lädt nach Zustimmung Drittanbieter-Code und Modelle. Keine Anmeldung erforderlich.</p></div></section></main>
-<nav class="bottom" aria-label="Hauptnavigation"><button class="active" data-view="home"><span><svg class="ico" aria-hidden="true"><use href="#ic-home"></use></svg></span><small>Home</small></button><button data-view="collection"><span><svg class="ico" aria-hidden="true"><use href="#ic-grid"></use></svg></span><small>Karten</small></button><button class="scan-nav" data-view="add" aria-label="Karte scannen"><span><svg class="ico" aria-hidden="true"><use href="#ic-scan"></use></svg></span></button><button data-view="albums"><span><svg class="ico" aria-hidden="true"><use href="#ic-folder"></use></svg></span><small>Alben</small></button><button data-view="settings"><span><svg class="ico" aria-hidden="true"><use href="#ic-settings"></use></svg></span><small>Mehr</small></button></nav><dialog id="cardDialog" class="card-dialog" aria-labelledby="detailTitle"><div class="dialog-shell"><div class="dialog-top"><span class="eyebrow">DEIN CARD VAULT · DETAILS</span><button type="button" id="closeDetail" class="icon-button" aria-label="Schließen"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button></div><div class="detail-layout"><div class="detail-visual"><div id="detailImage" class="detail-image"></div><div id="imageTabs" class="image-tabs"><button type="button" data-side="official">Referenzbild</button><button type="button" data-side="own">Mein Foto</button></div><label class="photo-replace">Eigenes Foto hinzufügen / ersetzen<input id="changeOwnPhoto" type="file" accept="image/*"></label><p id="detailSource" class="hint"></p></div><div class="detail-body"><div class="detail-title-row"><div><h2 id="detailTitle"></h2><p id="detailSubtitle" class="muted"></p></div><button id="detailHeart" class="icon-button" type="button" aria-label="Favorit umschalten"><svg class="ico" aria-hidden="true"><use href="#ic-heart"></use></svg></button></div><div id="detailRead" class="detail-read"></div><form id="editForm" class="detail-form hidden"><label>Name *<input id="editName" required maxlength="100"></label><div class="two"><label>Set<input id="editSet" maxlength="100"></label><label>Kartennummer<input id="editNumber" maxlength="30"></label></div><div class="two"><label>Sprache<select id="editLanguage"><option>Deutsch</option><option>Englisch</option><option>Japanisch</option><option>Andere</option></select></label><label>Variante<select id="editVariant"><option>Normal</option><option>Holo</option><option>Reverse Holo</option><option>1st Edition</option><option>Shadowless</option><option>Andere</option></select></label></div><div class="two"><label>Zustand<select id="editCondition"><option>Near Mint</option><option>Excellent</option><option>Good</option><option>Light Played</option><option>Played</option><option>Poor</option></select></label><label>Anzahl<input id="editQuantity" type="number" min="1" max="9999" required></label></div><label>Notizen<textarea id="editNotes" rows="3" maxlength="1500"></textarea></label><fieldset class="album-fieldset"><legend>In Alben speichern</legend><div id="editAlbumChecks"></div></fieldset><button type="submit" class="btn primary wide">Änderungen speichern</button><button type="button" id="cancelEdit" class="btn ghost wide">Abbrechen</button></form><div id="detailActions" class="detail-actions"><button id="startEdit" type="button" class="btn primary">Bearbeiten</button><button id="duplicateCard" type="button" class="btn secondary">Duplizieren</button><button id="deleteDetail" type="button" class="btn danger">Löschen</button></div></div></div></div></dialog><dialog id="albumEditor" class="ui-dialog"><form id="albumEditorForm" method="dialog"><div class="ui-dialog-head"><div><span class="eyebrow">DEINE SAMMLUNG</span><h2 id="albumEditorTitle">Album erstellen</h2></div><button type="button" class="icon-button" data-close="albumEditor"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button></div><label>Albumname<input id="albumEditorName" required maxlength="40" placeholder="z. B. Lieblingskarten"></label><label>Symbol<select id="albumEditorEmoji"><option value="book">Sammlung</option><option value="star">Feuer</option><option value="sparkles">Elektro</option><option value="star">Selten</option><option value="folder">Pflanzen</option><option value="heart">Favoriten</option><option value="star">Highlights</option><option value="folder">Ordner</option></select></label><div class="dialog-buttons"><button type="button" id="albumEditorDelete" class="btn danger hidden">Album löschen</button><button type="submit" class="btn primary">Speichern</button></div></form></dialog>
-<dialog id="albumPicker" class="ui-dialog"><div class="ui-dialog-head"><div><span class="eyebrow">KARTEN ORGANISIEREN</span><h2>In Alben speichern</h2></div><button type="button" class="icon-button" data-close="albumPicker"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button></div><p class="muted">Wähle alle Alben, in denen diese Karte erscheinen soll.</p><div id="albumPickerChecks" class="picker-checks"></div><div class="dialog-buttons"><button id="albumPickerNew" type="button" class="btn secondary">+ Neues Album</button><button id="albumPickerSave" type="button" class="btn primary">Speichern</button></div></dialog>
-<dialog id="profileDialog" class="ui-dialog"><form id="profileForm" method="dialog"><div class="ui-dialog-head"><div><span class="eyebrow">POKÉSCAN ID</span><h2>Dein Sammlerprofil</h2></div><button type="button" class="icon-button" data-close="profileDialog"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button></div><div class="profile-hero"><span id="profilePreview" class="profile-preview">PS</span><div><b id="profilePreviewName">Sammler</b><small>Deine persönliche Sammlung · lokal gespeichert</small></div></div><label>Profilbild<input id="profilePhoto" type="file" accept="image/*"></label><label>Benutzername<input id="profileInput" maxlength="32" required placeholder="Dein Sammlername"></label><label>Über mich<textarea id="profileBio" maxlength="240" rows="2" placeholder="Was sammelst du am liebsten?"></textarea></label><label>Designfarbe<select id="profileTheme"><option value="violet">Amethyst</option><option value="blue">Saphir</option><option value="green">Smaragd</option><option value="rose">Rosé</option></select></label><p class="hint">Das ist ein lokales Profil, kein Online-Konto. Für andere Geräte benötigst du weiterhin ein Backup.</p><button type="submit" class="btn primary wide">Profil speichern</button></form></dialog>
-<dialog id="wishDialog" class="ui-dialog"><form id="wishForm" method="dialog"><div class="ui-dialog-head"><h2>Wunschkarte hinzufügen</h2><button type="button" class="icon-button" data-close="wishDialog"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button></div><label>Kartenname<input id="wishName" required maxlength="100" placeholder="z. B. Glurak"></label><button type="submit" class="btn primary wide">Zur Wunschliste hinzufügen</button></form></dialog>
-<div id="toast" role="status" aria-live="polite"></div><script src="app.js" defer></script></body></html>
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101219">
+<meta name="description" content="PokéScan – Karten scannen, Alben erstellen und Sammlung organisieren">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+<title>PokéScan · Deine Sammlung, im Blick</title>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon-sprite" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs><symbol id="ic-sparkles" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"></path><path d="m19 17 .8 2.2L22 20l-2.2.8L19 23l-.8-2.2L16 20l2.2-.8L19 17Z"></path></symbol><symbol id="ic-camera" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h-4L8 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-4l-2-3Z"></path><circle cx="12" cy="13" r="3"></circle></symbol><symbol id="ic-image" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></symbol><symbol id="ic-folder" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3Z"></path></symbol><symbol id="ic-heart" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"></path></symbol><symbol id="ic-search" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="m16 16 5 5"></path></symbol><symbol id="ic-home" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7v11h-6v-7H9v7H3Z"></path></symbol><symbol id="ic-grid" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></symbol><symbol id="ic-settings" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1"></path><circle cx="12" cy="12" r="4"></circle></symbol><symbol id="ic-refresh" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 1 0-2 6"></path><path d="M20 4v7h-7"></path></symbol><symbol id="ic-download" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"></path></symbol><symbol id="ic-upload" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-4 4 4-4 4 4M4 17v4h16v-4"></path></symbol><symbol id="ic-close" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5 19 19M19 5 5 19"></path></symbol><symbol id="ic-arrow" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"></path></symbol><symbol id="ic-star" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3 6 7 .9-5 4.9 1.2 7L12 17.5 5.8 21l1.2-7L2 8.9 9 8Z"></path></symbol><symbol id="ic-scan" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5h5m6 0h5v4M4 15v4h5m6 0h5v-4M7 12h10"></path></symbol><symbol id="ic-check" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12 5 5L20 6"></path></symbol><symbol id="ic-user" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0"></path></symbol><symbol id="ic-plus" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v16M4 12h16"></path></symbol><symbol id="ic-book" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h7a3 3 0 0 1 3 3v14H7a3 3 0 0 0-3 0Zm16 0h-3a3 3 0 0 0-3 3v14h3a3 3 0 0 1 3 0Z"></path></symbol></defs></svg>
+<header class="top"><div class="brand">
+<div class="brand-icon"><svg class="ico" aria-hidden="true"><use href="#ic-sparkles"></use></svg></div>
+<div>
+<strong>Poké<span>Scan</span></strong><small>DEIN PERSÖNLICHER CARD VAULT</small>
+</div>
+</div>
+<div class="top-right">
+<span class="version-pill">COLLECTOR WORKSPACE</span><span class="online" id="network">● Online</span><button id="profileTrigger" class="profile-trigger" type="button" aria-label="Sammlerprofil öffnen"><span id="topAvatar" class="avatar">PS</span><span class="profile-label"><b id="topUsername">Sammler</b><small>Mein Profil</small></span></button>
+</div></header>
+<main><section id="home" class="view"><div class="eyebrow">DEIN SAMMLER-DASHBOARD <span class="tag">V 2.0</span>
+</div>
+<h1>Deine Sammlung.<em>Mit jedem Scan mehr.</em>
+</h1>
+<p class="intro">Entdecken. Festhalten. Wiederfinden.</p>
+<div class="hero">
+<div class="hero-glow"></div>
+<div class="hero-content">
+<small>ERFASSTER REFERENZWERT</small><div class="hero-value" id="total">–</div>
+<p>Nur Karten mit verfügbarem Referenzpreis · kein Verkaufswert</p>
+<div class="hero-stats">
+<div>
+<b id="count">0</b><small>Karten</small>
+</div>
+<div>
+<b id="unique">0</b><small>Einträge</small>
+</div>
+<div>
+<b id="albumCount">0</b><small>Alben</small>
+</div>
+</div>
+</div>
+<div class="hero-art" aria-hidden="true">
+<div class="display-card back-one"></div>
+<div class="display-card back-two"></div>
+<div class="display-card front">
+<svg viewbox="0 0 100 100" fill="none"><circle cx="50" cy="50" r="32"></circle><path d="M18 50h64"></path><circle cx="50" cy="50" r="10"></circle></svg><span>COLLECT SOMETHING<br>WORTH KEEPING.</span><small>POKÉSCAN / 02</small>
+</div>
+</div>
+</div>
+<div class="section-head"><h2>Schnellzugriff</h2></div>
+<div class="quick-grid">
+<button class="quick" data-go="add"><span class="quick-icon"><svg class="ico" aria-hidden="true"><use href="#ic-scan"></use></svg></span><b>Karte scannen</b><small>Neue Karte erfassen</small></button><button class="quick" data-go="albums"><span class="quick-icon"><svg class="ico" aria-hidden="true"><use href="#ic-folder"></use></svg></span><b>Meine Alben</b><small>Sammlung sortieren</small></button>
+<button class="quick" data-go="wishlist"><span class="quick-icon"><svg class="ico"><use href="#ic-star"></use></svg></span><b>Wunschliste</b><small>Dein nächster Fund</small></button><button class="quick" data-go="favorites"><span class="quick-icon"><svg class="ico"><use href="#ic-heart"></use></svg></span><b>Favoriten</b><small>Deine Highlights</small></button>
+</div>
+<div class="section-head">
+<h2>Zuletzt hinzugefügt</h2>
+<button class="text-btn" data-go="collection">Alle ansehen →</button>
+</div>
+<div id="recent" class="card-grid"></div>
+<div class="dashboard-tip">Dein Vault bleibt auf diesem Gerät. Sichere ihn regelmäßig mit einem Komplett-Backup.</div>
+<div class="insight-grid">
+<div>
+<span>Mit Referenzpreis</span><b id="priceCoverage">0 / 0</b>
+</div>
+<div>
+<span>Erfasste Kaufkosten</span><b id="costTotal">–</b>
+</div>
+<div>
+<span>Favoriten</span><b id="favoriteCount">0</b>
+</div>
+</div>
+<div id="backupReminder" class="notice hidden"></div></section>
+<section id="collection" class="view hidden"><div class="section-head">
+<div>
+<div class="eyebrow">DEIN INVENTAR</div>
+<h1>Sammlung</h1>
+</div>
+<button class="round-add" data-go="add" aria-label="Karte hinzufügen">+</button>
+</div>
+<input id="search" class="search" placeholder="Name, Set, Nummer oder Tag suchen" aria-label="Sammlung durchsuchen"><div class="chips" id="filters">
+<button class="chip active" data-filter="all">Alle</button><button class="chip" data-filter="favorites"><svg class="ico" aria-hidden="true"><use href="#ic-heart"></use></svg> Favoriten</button><button class="chip" data-filter="priced">€ Mit Preis</button>
+<button class="chip" data-filter="trade">Tauschen</button><button class="chip" data-filter="sale">Verkaufen</button><button class="chip" data-filter="unpriced">Ohne Preis</button>
+</div>
+<details class="filter-panel"><summary>Filter &amp; Darstellung</summary><div class="filter-grid">
+<label>Set<select id="filterSet"><option value="">Alle Sets</option></select></label><label>Sprache<select id="filterLanguage"><option value="">Alle Sprachen</option>
+<option>Deutsch</option>
+<option>Englisch</option>
+<option>Japanisch</option>
+<option>Andere</option></select></label><label>Variante<select id="filterVariant"><option value="">Alle Varianten</option>
+<option>Normal</option>
+<option>Holo</option>
+<option>Reverse Holo</option>
+<option>1st Edition</option>
+<option>Shadowless</option></select></label><label>Ansicht<select id="collectionView"><option value="grid">Kartengitter</option>
+<option value="list">Kompakte Liste</option></select></label>
+</div>
+<button id="resetFilters" type="button" class="btn ghost">Filter zurücksetzen</button></details><div class="sort-line">
+<span id="resultCount">0 Karten</span><select id="sort" aria-label="Sortieren"><option value="new">Neueste zuerst</option>
+<option value="name">Name A–Z</option>
+<option value="value">Höchster Preis</option>
+<option value="number">Kartennummer</option>
+<option value="quantity">Anzahl</option></select>
+</div>
+<div class="collection-tools">
+<button id="showDuplicates" class="btn secondary" type="button">Doppelte Karten prüfen</button><button id="clearDuplicateFilter" class="btn ghost hidden" type="button">Dublettenfilter beenden</button>
+</div>
+<div id="cards" class="card-grid"></div></section>
+<section id="albums" class="view hidden"><div class="section-head">
+<div>
+<div class="eyebrow">ORGANISIERE DEINE SCHÄTZE</div>
+<h1>Alben</h1>
+</div>
+<button id="newAlbum" class="round-add" aria-label="Neues Album">+</button>
+</div>
+<p class="muted">Ordne Karten mehreren Alben zu – etwa Lieblingskarten, Tauschordner oder Base Set.</p>
+<div class="album-help">Erstelle einen Ordner und tippe bei einer Karte auf „Album“, um sie zuzuordnen. Eine Karte kann in mehreren Ordnern liegen.</div>
+<div id="albumList" class="album-grid"></div>
+<div id="albumDetail" class="hidden">
+<button id="backAlbums" class="text-btn">← Alle Alben</button><div class="album-detail-head">
+<h2 id="albumTitle"></h2>
+<button id="editAlbum" class="btn secondary">Album bearbeiten</button>
+</div>
+<div class="binder-tools">
+<div class="segmented">
+<button id="albumGrid" class="active">Übersicht</button><button id="albumBinder">Album blättern</button>
+</div>
+<span id="albumStats" class="hint"></span>
+</div>
+<div id="albumCards" class="card-grid"></div>
+<div id="binder" class="hidden">
+<div id="binderPage" class="binder-page"></div>
+<div class="binder-nav">
+<button id="binderPrev" class="btn secondary" aria-label="Vorherige Albumseite">Zurück</button><span id="binderCounter" role="status"></span><button id="binderNext" class="btn secondary" aria-label="Nächste Albumseite">Weiter</button>
+</div>
+<p class="hint">Wischen oder Pfeiltasten zum Blättern. Tippe auf eine Karte für Details.</p>
+</div>
+</div></section>
+<section id="add" class="view hidden"><div class="eyebrow">KARTEN-STUDIO</div>
+<h1>Neue Karte</h1>
+<p class="muted">Scannen, identifizieren und deiner Sammlung hinzufügen.</p>
+<details class="variant-guide"><summary>Holo, 1st Edition oder Shadowless erkennen</summary><ul>
+<li>Holo: Der Bildbereich glänzt. Reverse Holo: Meist glänzt die Fläche außerhalb des Bildes; Muster unterscheiden sich je Set.</li>
+<li>1st Edition: Prüfe den sichtbaren „Edition 1“-Stempel. Eine Holo-Karte kann gleichzeitig 1st Edition sein.</li>
+<li>Shadowless: Eine bestimmte englische Base-Set-Druckausgabe. Prüfe den fehlenden rechten / unteren Bildrahmenschatten und die Druckmerkmale. Deutsche Karten sind keine englischen Shadowless-Karten.</li>
+</ul>
+<p>Ein einzelnes Foto bestätigt Glanz, Echtheit oder Druckausgabe nicht zuverlässig. Merkmale selbst prüfen.</p></details><form id="cardForm">
+<div class="scan-steps" aria-label="Scan-Ablauf">
+<span><b>01</b> Foto</span><span><b>02</b> Karte prüfen</span><span><b>03</b> Speichern</span>
+</div>
+<div class="panel">
+<label>Sprache<select id="language"><option>Deutsch</option>
+<option>Englisch</option>
+<option>Japanisch</option>
+<option>Andere</option></select></label><div class="source-grid">
+<label class="source-tile" for="cameraPhoto"><span><svg class="ico" aria-hidden="true"><use href="#ic-camera"></use></svg></span><b>Kamera</b><small>Foto aufnehmen</small><input type="file" id="cameraPhoto" accept="image/*" capture="environment"></label><label class="source-tile" for="photo"><span><svg class="ico" aria-hidden="true"><use href="#ic-image"></use></svg></span><b>Galerie / Dateien</b><small>Bild auswählen</small><input type="file" id="photo" accept="image/*" multiple></label>
+</div>
+<img id="preview" class="preview hidden" alt="Foto deiner Karte"><div class="scan-photo-actions">
+<button id="cropPhoto" type="button" class="btn secondary" disabled>Karte zuschneiden</button><button id="clearPhoto" type="button" class="btn ghost" disabled>Foto entfernen</button>
+</div>
+<button id="scan" type="button" class="btn primary" disabled>Text erkennen &amp; Karten suchen</button><div>
+<button id="visualCompare" type="button" class="btn secondary" disabled>Kandidaten nach Bild vergleichen</button><p class="hint">Der lokale Bildvergleich sortiert bekannte Kandidaten. Er ist kein trainiertes KI-Modell und bestätigt keine Druckvariante.</p>
+<details class="set-search"><summary>Bildsuche innerhalb eines Sets</summary><p class="hint">Wenn der Text unlesbar ist: Set wählen und dessen Referenzbilder lokal mit deinem zugeschnittenen Foto vergleichen. Benötigt Internet und lädt bis zu 250 Bilder.</p>
+<button id="loadSets" type="button" class="btn ghost">Set-Katalog laden</button><label>Set suchen<input id="setCatalogSearch" placeholder="z. B. Basis oder 151"></label><label>Set auswählen<select id="setCatalog"><option value="">Zuerst Katalog laden</option></select></label><button id="visualSet" type="button" class="btn secondary">Set laden &amp; Bildvergleich starten</button><button id="cancelVisual" type="button" class="btn ghost hidden">Vergleich abbrechen</button></details>
+</div>
+<p id="scanStatus" class="hint" role="status">OCR benötigt beim ersten Start Internet. Für eine bessere Erkennung die Karte gerade und vollständig fotografieren.</p>
+<div class="scan-tools">
+<button type="button" class="btn secondary" id="rotateScan" disabled>Bild um 90° drehen</button><button type="button" class="btn secondary" id="scannerInfo">OCR-Ergebnis prüfen</button>
+</div>
+<div id="ocrInspector" class="ocr-inspector hidden">
+<h3>Erkannte Daten kontrollieren</h3>
+<p class="hint">Die Texterkennung kann Fehler machen. Übernimm nur passende Vorschläge.</p>
+<div id="ocrCandidates" class="candidate-list"></div>
+<details><summary>Erkannten Rohtext anzeigen</summary><pre id="ocrRaw"></pre></details>
+</div>
+</div>
+<div class="panel">
+<h3>Kartendetails</h3>
+<p class="hint">Kartennummer und Set können auch ohne erkannten Namen gesucht werden.</p>
+<label>Name *<input id="name" required maxlength="100" placeholder="z. B. Glurak oder Pikachu"></label><div class="two">
+<label>Set<input id="set" maxlength="100" placeholder="Basis-Set"></label><label>Nummer<input id="number" maxlength="30" placeholder="4/102"></label>
+</div>
+<button type="button" id="identify" class="btn secondary"><svg class="ico" aria-hidden="true"><use href="#ic-search"></use></svg> Passende Karten suchen</button><p id="matchStatus" class="hint" role="status">Suche nach Name oder Nummer. Bestätige anschließend Bild, Set und Sprache.</p>
+<div class="scan-queue hidden" id="scanQueue">
+<span id="scanQueueInfo"></span><button type="button" class="btn secondary" id="scanNext">Nächstes Bild</button>
+</div>
+<div class="match-toolbar">
+<span>Suchergebnisse · Tippe auf das passende Kartenbild</span><span id="matchCounter"></span>
+</div>
+<details id="matchesDisclosure" class="results-disclosure" open><summary>Vorschläge anzeigen / ausblenden <span id="resultsHint">Bilder vergleichen und Treffer auswählen</span></summary><div id="matches" class="matches"></div></details><div id="selectedCard" class="hint"></div>
+</div>
+<div class="panel">
+<h3>Bewertung &amp; Einordnung</h3>
+<div id="priceResult" class="price-box">Noch kein Referenzpreis verfügbar.</div>
+<button type="button" id="priceRefresh" class="btn ghost"><svg class="ico" aria-hidden="true"><use href="#ic-refresh"></use></svg> Preis erneut abrufen</button><label>Notizen (optional)<textarea id="notes" maxlength="1500" rows="3" placeholder="Besonderheiten, Fundort, Zustand ..."></textarea></label><div class="two">
+<label>Finish<select id="variant" aria-describedby="finishHint"><option>Normal</option>
+<option>Holo</option>
+<option>Reverse Holo</option>
+<option>Andere</option>
+<option>Unklar</option></select></label>
+<span class="hint" id="finishHint">Finish und Auflage werden getrennt gespeichert.</span>
+</div>
+<div class="two">
+<label>Auflage<select id="edition"><option value="unlimited">Unmarkiert / Unlimited</option>
+<option value="first">1st Edition</option>
+<option value="unknown">Unklar</option></select></label><label class="checkrow"><input id="shadowless" type="checkbox"> Shadowless bestätigt</label>
+</div>
+<div class="two">
+<label>Zustand<select id="condition"><option selected>Ungeprüft</option>
+<option>Near Mint</option>
+<option>Excellent</option>
+<option>Good</option>
+<option>Light Played</option>
+<option>Played</option>
+<option>Poor</option></select></label><label>Anzahl<input id="quantity" type="number" min="1" max="9999" value="1" required></label>
+</div>
+<label>Album<select id="albumSelect"><option value="">Kein Album</option></select></label><label class="checkrow"><input type="checkbox" id="favorite"> Als Favorit markieren</label>
+</div>
+<details class="panel"><summary>Weitere Angaben</summary><div class="two">
+<label>Kaufpreis pro Karte (€)<input id="purchasePrice" type="number" min="0" max="10000000" step="0.01"></label><label>Status<select id="cardStatus"><option value="collection">Sammlung</option>
+<option value="trade">Tauschen</option>
+<option value="sale">Verkaufen</option></select></label>
+</div>
+<label>Tags<input id="tags" maxlength="150" placeholder="Vintage, Geschenk, ..."></label><label>Seltenheit<input id="rarity" maxlength="80" placeholder="Wird beim Datenbanktreffer übernommen"></label></details><button type="submit" class="btn primary wide">In Sammlung speichern</button>
+</form>
+<p class="hint">Dein eigenes Foto wird dauerhaft lokal auf diesem Gerät gespeichert. Es erscheint als Ersatzbild, falls kein Datenbankbild vorhanden ist. Sichere wichtige Fotos separat.</p></section>
+<section id="favorites" class="view hidden"><div class="eyebrow">DEINE HIGHLIGHTS</div>
+<h1>
+<svg class="ico" aria-hidden="true"><use href="#ic-heart"></use></svg> Favoriten</h1>
+<div id="favoriteCards" class="card-grid"></div></section>
+<section id="settings" class="view hidden"><div class="eyebrow">DEIN WORKSPACE</div>
+<h1>Einstellungen</h1>
+<div class="settings-grid">
+<section class="panel"><h3>Daten sichern</h3>
+<p class="muted">Sammlung, Alben, Profil und eigene Fotos als eine Datei. Zum Gerätewechsel die Datei auf dem anderen Gerät importieren.</p>
+<button id="export" class="btn primary wide">Komplett-Backup herunterladen</button><label class="import btn secondary">Backup importieren<input id="import" type="file" accept=".json,application/json"></label><button id="csvExport" class="btn ghost">Sammlung als CSV</button><p id="backupStatus" class="hint"></p></section><section class="panel"><h3>Dein Profil &amp; Design</h3>
+<p class="muted">Wähle deine Farbe und einen hellen oder dunklen Workspace.</p>
+<button id="profileEdit" class="btn secondary">Profil bearbeiten</button><label>Darstellung<select id="appearance"><option value="dark">Dunkel</option>
+<option value="light">Hell</option>
+<option value="system">Wie auf dem Gerät</option></select></label><button id="installApp" class="btn ghost">App installieren</button><p id="installStatus" class="hint">Unter Android im Browser-Menü „App installieren“ oder „Zum Startbildschirm hinzufügen“ wählen.</p></section><section class="panel"><h3>Preise aktualisieren</h3>
+<p class="muted">Referenzpreise für verknüpfte Karten nacheinander abrufen. Fehlende Werte überschreiben keinen vorhandenen Preis.</p>
+<button id="refreshPrices" class="btn secondary">Alle Referenzpreise aktualisieren</button><p id="pricesStatus" class="hint" role="status"></p></section><section class="panel"><h3>App &amp; Speicher</h3>
+<p class="muted">PokéScan 2.0 · Kostenlos · Ohne Konto</p>
+<button id="refresh" class="btn secondary">Auf App-Update prüfen</button><p id="updateStatus" class="hint" role="status"></p>
+<button id="diagnose" class="btn ghost">Speicher &amp; Verbindung prüfen</button><div id="diagnosticResult" role="status"></div></section>
+</div>
+<section class="panel"><h3>Preise &amp; Datenschutz</h3>
+<p class="muted">Referenzpreise von TCGdex / Cardmarket sind keine Verkaufsgarantie und berücksichtigen Zustand, Grading oder Kartensprache nicht zuverlässig. Reverse Holo und Spezialauflagen erhalten ohne eindeutig passende Quelle keinen neuen Referenzpreis. Preisverläufe zeigen nur in dieser App gespeicherte Abrufe.</p>
+<p class="muted">Sammlung und Fotos bleiben in diesem Browser. Beim Laden von Kartendaten und Referenzbildern erhalten TCGdex-Server übliche Verbindungsdaten. OCR lädt Tesseract.js und Sprachmodelle nach deiner Zustimmung; das Foto wird lokal verarbeitet. Browserdaten löschen entfernt lokale Daten. Es gibt keine Cloud-Synchronisierung.</p>
+<a href="https://tcgdex.dev" target="_blank" rel="noopener">Datenquelle: TCGdex</a></section></section><section id="wishlist" class="view hidden"><div class="section-head">
+<div>
+<div class="eyebrow">DEIN NÄCHSTER FUND</div>
+<h1>Wunschliste</h1>
+</div>
+<button id="addWish" class="round-add" aria-label="Wunschkarte hinzufügen">+</button>
+</div>
+<p class="muted">Halte fest, welche Karten dir noch fehlen.</p>
+<div id="wishlistDisplay" class="wish-list"></div></section></main>
+<nav class="bottom" aria-label="Hauptnavigation"><button class="active" data-view="home"><span><svg class="ico" aria-hidden="true"><use href="#ic-home"></use></svg></span><small>Home</small></button><button data-view="collection"><span><svg class="ico" aria-hidden="true"><use href="#ic-grid"></use></svg></span><small>Karten</small></button><button class="scan-nav" data-view="add" aria-label="Karte scannen"><span><svg class="ico" aria-hidden="true"><use href="#ic-scan"></use></svg></span></button><button data-view="albums"><span><svg class="ico" aria-hidden="true"><use href="#ic-folder"></use></svg></span><small>Alben</small></button><button data-view="settings"><span><svg class="ico" aria-hidden="true"><use href="#ic-settings"></use></svg></span><small>Mehr</small></button></nav><dialog id="cardDialog" class="card-dialog" aria-labelledby="detailTitle"><div class="dialog-shell">
+<div class="dialog-top">
+<span class="eyebrow">DEIN CARD VAULT · DETAILS</span><button type="button" id="closeDetail" class="icon-button" aria-label="Schließen"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button>
+</div>
+<div class="detail-layout">
+<div class="detail-visual">
+<div id="detailImage" class="detail-image"></div>
+<div id="imageTabs" class="image-tabs">
+<button type="button" data-side="official">Referenzbild</button><button type="button" data-side="own">Mein Foto</button>
+</div>
+<label class="photo-replace">Eigenes Foto hinzufügen / ersetzen<input id="changeOwnPhoto" type="file" accept="image/*"></label><p id="detailSource" class="hint"></p>
+</div>
+<div class="detail-body">
+<div class="detail-title-row">
+<div>
+<h2 id="detailTitle"></h2>
+<p id="detailSubtitle" class="muted"></p>
+</div>
+<button id="detailHeart" class="icon-button" type="button" aria-label="Favorit umschalten" title="Favorit umschalten"><svg class="ico" aria-hidden="true"><use href="#ic-heart"></use></svg></button>
+</div>
+<div id="detailRead" class="detail-read"></div>
+<form id="editForm" class="detail-form hidden">
+<label>Name *<input id="editName" required maxlength="100"></label><div class="two">
+<label>Set<input id="editSet" maxlength="100"></label><label>Kartennummer<input id="editNumber" maxlength="30"></label>
+</div>
+<div class="two">
+<label>Sprache<select id="editLanguage"><option>Deutsch</option>
+<option>Englisch</option>
+<option>Japanisch</option>
+<option>Andere</option></select></label><label>Finish<select id="editVariant"><option>Normal</option>
+<option>Holo</option>
+<option>Reverse Holo</option>
+<option>Andere</option>
+<option>Unklar</option></select></label>
+</div>
+<div class="two">
+<label>Zustand<select id="editCondition"><option>Ungeprüft</option>
+<option>Near Mint</option>
+<option>Excellent</option>
+<option>Good</option>
+<option>Light Played</option>
+<option>Played</option>
+<option>Poor</option></select></label><label>Anzahl<input id="editQuantity" type="number" min="1" max="9999" required></label>
+</div>
+<label>Notizen<textarea id="editNotes" rows="3" maxlength="1500"></textarea></label><fieldset class="album-fieldset">
+<legend>In Alben speichern</legend>
+<div id="editAlbumChecks"></div>
+</fieldset>
+<div class="filter-grid">
+<label>Auflage<select id="editEdition"><option value="unlimited">Unmarkiert / Unlimited</option>
+<option value="first">1st Edition</option>
+<option value="unknown">Unklar</option></select></label><label class="checkrow"><input id="editShadowless" type="checkbox">Shadowless bestätigt</label><label>Seltenheit<input id="editRarity" maxlength="80"></label><label>Kaufpreis pro Karte (€)<input id="editPurchase" type="number" min="0" max="10000000" step="0.01"></label><label>Tags<input id="editTags" maxlength="150"></label><label>Status<select id="editStatus"><option value="collection">Sammlung</option>
+<option value="trade">Tauschen</option>
+<option value="sale">Verkaufen</option></select></label><label>Grading<select id="editGrader"><option value="">Nicht bewertet</option>
+<option>PSA</option>
+<option>BGS</option>
+<option>CGC</option></select></label><label>Grade<input id="editGrade" type="number" min="1" max="10" step="0.5"></label>
+</div>
+<button type="submit" class="btn primary wide">Änderungen speichern</button><button type="button" id="cancelEdit" class="btn ghost wide">Abbrechen</button>
+</form>
+<div id="detailActions" class="detail-actions">
+<button id="startEdit" type="button" class="btn primary">Bearbeiten</button><button id="duplicateCard" type="button" class="btn secondary">Duplizieren</button><button id="deleteDetail" type="button" class="btn danger">Löschen</button>
+<button id="refreshDetailPrice" type="button" class="btn secondary">Preis aktualisieren</button><button id="detailAlbum" type="button" class="btn secondary">Alben zuordnen</button>
+</div>
+</div>
+</div>
+</div></dialog><dialog id="albumEditor" class="ui-dialog"><form id="albumEditorForm" method="dialog">
+<div class="ui-dialog-head">
+<div>
+<span class="eyebrow">DEINE SAMMLUNG</span><h2 id="albumEditorTitle">Album erstellen</h2>
+</div>
+<button type="button" class="icon-button" data-close="albumEditor" aria-label="Schließen"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button>
+</div>
+<label>Albumname<input id="albumEditorName" required maxlength="40" placeholder="z. B. Lieblingskarten"></label><label>Symbol<select id="albumEditorEmoji" aria-label="Albumsymbol"><option value="book">Sammlung</option>
+<option value="star">Highlights</option>
+<option value="folder">Ordner</option>
+<option value="heart">Favoriten</option>
+<option value="sparkles">Besondere Karten</option></select></label><div class="dialog-buttons">
+<button type="button" id="albumEditorDelete" class="btn danger hidden">Album löschen</button><button type="submit" class="btn primary">Speichern</button>
+</div>
+</form></dialog>
+<dialog id="albumPicker" class="ui-dialog"><div class="ui-dialog-head">
+<div>
+<span class="eyebrow">KARTEN ORGANISIEREN</span><h2>In Alben speichern</h2>
+</div>
+<button type="button" class="icon-button" data-close="albumPicker" aria-label="Schließen"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button>
+</div>
+<p class="muted">Wähle alle Alben, in denen diese Karte erscheinen soll.</p>
+<div id="albumPickerChecks" class="picker-checks"></div>
+<div class="dialog-buttons">
+<button id="albumPickerNew" type="button" class="btn secondary">+ Neues Album</button><button id="albumPickerSave" type="button" class="btn primary">Speichern</button>
+</div></dialog>
+<dialog id="profileDialog" class="ui-dialog"><form id="profileForm" method="dialog">
+<div class="ui-dialog-head">
+<div>
+<span class="eyebrow">POKÉSCAN ID</span><h2>Dein Sammlerprofil</h2>
+</div>
+<button type="button" class="icon-button" data-close="profileDialog" aria-label="Schließen"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button>
+</div>
+<div class="profile-hero">
+<span id="profilePreview" class="profile-preview">PS</span><div>
+<b id="profilePreviewName">Sammler</b><small>Deine persönliche Sammlung · lokal gespeichert</small>
+</div>
+</div>
+<label>Profilbild<input id="profilePhoto" type="file" accept="image/*"></label><label>Benutzername<input id="profileInput" maxlength="32" required placeholder="Dein Sammlername"></label><label>Über mich<textarea id="profileBio" maxlength="240" rows="2" placeholder="Was sammelst du am liebsten?"></textarea></label><label>Designfarbe<select id="profileTheme"><option value="violet">Amethyst</option>
+<option value="blue">Saphir</option>
+<option value="green">Smaragd</option>
+<option value="rose">Rosé</option>
+<option value="gold">Gold</option></select></label><p class="hint">Das ist ein lokales Profil, kein Online-Konto. Für andere Geräte benötigst du weiterhin ein Backup.</p>
+<button type="submit" class="btn primary wide">Profil speichern</button>
+</form></dialog>
+<dialog id="wishDialog" class="ui-dialog"><form id="wishForm" method="dialog">
+<div class="ui-dialog-head">
+<h2>Wunschkarte hinzufügen</h2>
+<button type="button" class="icon-button" data-close="wishDialog" aria-label="Schließen"><svg class="ico" aria-hidden="true"><use href="#ic-close"></use></svg></button>
+</div>
+<label>Kartenname<input id="wishName" required maxlength="100" placeholder="z. B. Glurak"></label><div>
+<label>Set / Nummer<input id="wishSet" maxlength="100" placeholder="Optional"></label><label>Zielbudget (€)<input id="wishBudget" type="number" min="0" step="0.01"></label>
+</div>
+<button type="submit" class="btn primary wide">Zur Wunschliste hinzufügen</button>
+</form></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="cropDialog" class="ui-dialog crop-dialog" aria-labelledby="cropTitle"><div class="ui-dialog-head">
+<h2 id="cropTitle">Karte zuschneiden</h2>
+<button class="icon-button" data-close="cropDialog" aria-label="Schließen">×</button>
+</div>
+<p class="hint">Wähle den Kartenbereich. Ziehe einen Rahmen im Bild oder nutze die Regler.</p>
+<canvas id="cropCanvas" aria-label="Zuschneidebereich"></canvas><div class="two">
+<label>Links<input id="cropX" type="range" min="0" max="90" value="5"></label><label>Oben<input id="cropY" type="range" min="0" max="90" value="5"></label><label>Breite<input id="cropW" type="range" min="10" max="100" value="90"></label><label>Höhe<input id="cropH" type="range" min="10" max="100" value="90"></label>
+</div>
+<button id="applyCrop" class="btn primary wide">Zuschnitt übernehmen</button></dialog><dialog id="confirmDialog" class="ui-dialog" aria-labelledby="confirmTitle"><h2 id="confirmTitle"></h2>
+<p id="confirmText" class="muted"></p>
+<div class="dialog-buttons">
+<button id="confirmCancel" class="btn secondary">Abbrechen</button><button id="confirmAccept" class="btn primary">Bestätigen</button>
+</div></dialog><script src="core.js" defer></script><script src="app.js" defer></script>
+</body>
+</html>
