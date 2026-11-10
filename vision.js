@@ -1,0 +1,27 @@
+/* Local card geometry. No image uploads, external models or dependencies. */
+(function(root){
+ 'use strict';
+ const cross=(a,b,c)=>(b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x);
+ const distance=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+ function hull(points){const p=[...points].sort((a,b)=>a.x-b.x||a.y-b.y),lo=[],hi=[];for(const q of p){while(lo.length>1&&cross(lo.at(-2),lo.at(-1),q)<=0)lo.pop();lo.push(q);}for(const q of p.reverse()){while(hi.length>1&&cross(hi.at(-2),hi.at(-1),q)<=0)hi.pop();hi.push(q);}return lo.slice(0,-1).concat(hi.slice(0,-1));}
+ function area(p){return Math.abs(p.reduce((n,a,i)=>{const b=p[(i+1)%p.length];return n+a.x*b.y-a.y*b.x;},0))/2;}
+ function order(p){const c={x:p.reduce((n,a)=>n+a.x,0)/4,y:p.reduce((n,a)=>n+a.y,0)/4};let q=[...p].sort((a,b)=>Math.atan2(a.y-c.y,a.x-c.x)-Math.atan2(b.y-c.y,b.x-c.x));const first=q.reduce((best,a,i)=>a.x+a.y<q[best].x+q[best].y?i:best,0);q=q.slice(first).concat(q.slice(0,first));if(distance(q[0],q[1])>distance(q[1],q[2]))q=q.slice(1).concat(q[0]);return q;}
+ function validQuad(q,w,h){if(q.length!==4||q.some(p=>!Number.isFinite(p.x+p.y)||p.x<0||p.y<0||p.x>w||p.y>h))return false;const turns=q.map((p,i)=>cross(p,q[(i+1)%4],q[(i+2)%4]));if(!(turns.every(x=>x>0)||turns.every(x=>x<0)))return false;const a=(distance(q[0],q[1])+distance(q[2],q[3]))/2,b=(distance(q[1],q[2])+distance(q[3],q[0]))/2;return Math.min(a,b)>25&&Math.min(a,b)/Math.max(a,b)>.49&&Math.min(a,b)/Math.max(a,b)<.86&&area(q)>w*h*.16;}
+ function detect(data,w,h){
+  const gray=new Float32Array(w*h),edge=new Uint8Array(w*h),mask=new Uint8Array(w*h);for(let i=0;i<gray.length;i++)gray[i]=data[i*4]*.299+data[i*4+1]*.587+data[i*4+2]*.114;
+  for(let y=2;y<h-2;y++)for(let x=2;x<w-2;x++){const i=y*w+x;const gx=-gray[i-w-1]+gray[i-w+1]-2*gray[i-1]+2*gray[i+1]-gray[i+w-1]+gray[i+w+1],gy=-gray[i-w-1]-2*gray[i-w]-gray[i-w+1]+gray[i+w-1]+2*gray[i+w]+gray[i+w+1];if(Math.hypot(gx,gy)>100)edge[i]=1;}
+  for(let y=2;y<h-2;y++)for(let x=2;x<w-2;x++)if(edge[y*w+x])for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)mask[(y+dy)*w+x+dx]=1;
+  const queue=new Int32Array(w*h),results=[];
+  for(let i=0;i<mask.length;i++){if(!mask[i])continue;let start=0,end=1;queue[0]=i;mask[i]=0;const points=[];while(start<end){const k=queue[start++],x=k%w,y=Math.floor(k/w);if(edge[k])points.push({x,y});for(const n of [k-1,k+1,k-w,k+w])if(n>=0&&n<mask.length&&Math.abs(n%w-x)<=1&&mask[n]){mask[n]=0;queue[end++]=n;}}
+   if(points.length<100)continue;let poly=hull(points);const originalArea=area(poly);while(poly.length>4){let best=Infinity,idx=0;for(let j=0;j<poly.length;j++){const loss=Math.abs(cross(poly[(j+poly.length-1)%poly.length],poly[j],poly[(j+1)%poly.length]));if(loss<best){best=loss;idx=j;}}poly.splice(idx,1);}if(!validQuad(poly,w,h)||area(poly)/originalArea<.88)continue;
+   const q=order(poly);let hits=0,total=0;for(let j=0;j<4;j++){const a=q[j],b=q[(j+1)%4],len=distance(a,b);for(let t=0;t<len;t+=2){total++;const x=Math.round(a.x+(b.x-a.x)*t/len),y=Math.round(a.y+(b.y-a.y)*t/len);let hit=false;for(let dy=-3;dy<=3;dy++)for(let dx=-3;dx<=3;dx++)if(x+dx>=0&&x+dx<w&&y+dy>=0&&y+dy<h&&edge[(y+dy)*w+x+dx])hit=true;if(hit)hits++;}}
+   const support=hits/Math.max(total,1);if(support>.78)results.push({corners:q,score:area(q)/(w*h)*support});
+  }return results.sort((a,b)=>b.score-a.score)[0]||null;
+ }
+ function project(q,u,v){const [a,b,c,d]=q,dx1=b.x-c.x,dx2=d.x-c.x,dx3=a.x-b.x+c.x-d.x,dy1=b.y-c.y,dy2=d.y-c.y,dy3=a.y-b.y+c.y-d.y,den=dx1*dy2-dx2*dy1;let g=0,h=0;if(Math.abs(den)>1e-9){g=(dx3*dy2-dx2*dy3)/den;h=(dx1*dy3-dx3*dy1)/den;}const z=g*u+h*v+1;return{x:((b.x-a.x+g*b.x)*u+(d.x-a.x+h*d.x)*v+a.x)/z,y:((b.y-a.y+g*b.y)*u+(d.y-a.y+h*d.y)*v+a.y)/z};}
+ async function autoCrop(blob){const bmp=await createImageBitmap(blob);try{if(bmp.width/bmp.height>.65&&bmp.width/bmp.height<.78)return null;const scale=Math.min(1,420/Math.max(bmp.width,bmp.height)),thumb=document.createElement('canvas');thumb.width=Math.round(bmp.width*scale);thumb.height=Math.round(bmp.height*scale);const ctx=thumb.getContext('2d',{willReadFrequently:true});ctx.drawImage(bmp,0,0,thumb.width,thumb.height);const found=detect(ctx.getImageData(0,0,thumb.width,thumb.height).data,thumb.width,thumb.height);if(!found)return null;const corners=found.corners.map(p=>({x:p.x/scale,y:p.y/scale}));return{canvas:warp(bmp,corners),corners};}finally{bmp.close();}}
+ function warp(source,q){const src=document.createElement('canvas');src.width=source.width;src.height=source.height;const sx=src.getContext('2d',{willReadFrequently:true});sx.drawImage(source,0,0);const pixels=sx.getImageData(0,0,src.width,src.height).data,out=document.createElement('canvas');out.width=Math.min(1200,Math.round((distance(q[0],q[1])+distance(q[2],q[3]))/2));out.height=Math.round(out.width*88/63);const ctx=out.getContext('2d'),image=ctx.createImageData(out.width,out.height);
+  for(let y=0;y<out.height;y++)for(let x=0;x<out.width;x++){const p=project(q,x/(out.width-1),y/(out.height-1)),px=Math.max(0,Math.min(src.width-1.001,p.x)),py=Math.max(0,Math.min(src.height-1.001,p.y)),ix=Math.floor(px),iy=Math.floor(py),fx=px-ix,fy=py-iy,k=(y*out.width+x)*4;for(let c=0;c<3;c++){const i=(iy*src.width+ix)*4+c;image.data[k+c]=pixels[i]*(1-fx)*(1-fy)+pixels[i+4]*fx*(1-fy)+pixels[i+src.width*4]*(1-fx)*fy+pixels[i+src.width*4+4]*fx*fy;}image.data[k+3]=255;}ctx.putImageData(image,0,0);return out;
+ }
+ const api={hull,area,order,validQuad,detect,project,autoCrop,warp};root.PokeVision=api;if(typeof module!=='undefined')module.exports=api;
+})(globalThis);

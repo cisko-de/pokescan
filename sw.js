@@ -1,6 +1,6 @@
 /* App shell and viewed reference images only; collection and photos live separately. */
-const SHELL='pokescan-shell-v20',IMAGES='pokescan-images-v2';
-const ASSETS=['./','./index.html','./style.css','./core.js','./app.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
+const SHELL='pokescan-shell-v21',IMAGES='pokescan-images-v2';
+const ASSETS=['./','./index.html','./style.css','./scan-ui.css','./core.js','./languages.js','./vision.js','./app.js','./scanner.js','./ui.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(ASSETS))));
 self.addEventListener('message',event=>{if(event.data?.type==='ACTIVATE_UPDATE')self.skipWaiting();});
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>(/^pokescan-v\d+$/.test(k)||k.startsWith('pokescan-shell-'))&&k!==SHELL).map(k=>caches.delete(k)));await self.clients.claim();})()));

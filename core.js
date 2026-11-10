@@ -19,14 +19,26 @@
   const shadowless = c => !!c.shadowless || c.variant === 'Shadowless';
   const duplicateKey = c => [c.tcgdexId || norm(c.name)+'|'+norm(c.set)+'|'+collectorId(c.number),norm(c.language),norm(finish(c)),edition(c),shadowless(c),norm(c.condition),norm(c.grader),c.grade ?? ''].join('|');
   const variantLabel = c => [finish(c),edition(c)==='first'?'1st Edition':'',shadowless(c)?'Shadowless':''].filter(Boolean).join(' · ');
-  function priceQuote(data, c) {
-    if (edition(c) === 'first' || shadowless(c) || !['Normal','Holo'].includes(finish(c)) || c.grader) return null;
-    const cm = data?.pricing?.cardmarket;
-    if (!cm || (cm.unit || 'EUR') !== 'EUR') return null;
-    const value = finish(c)==='Holo' ? (cm['trend-holo'] ?? cm['avg-holo']) : (cm.trend ?? cm.avg);
-    if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) return null;
-    return {price:value,source:'TCGdex / Cardmarket · '+finish(c),date:cm.updated ? String(cm.updated).slice(0,10) : null,observedAt:new Date().toISOString()};
+  function priceDate(value){if(value===null||value===undefined)return null;const v=typeof value==='number'?value*(value<1e12?1000:1):value;const d=new Date(v);return Number.isNaN(d.getTime())?null:d.toISOString();}
+  function priceQuote(data,c,metric='trend'){
+    if(c.grader||edition(c)==='unknown')return null;
+    const f=finish(c),type=({'Normal':'normal','Holo':'holo','Reverse Holo':'reverse'})[f];if(!type)return null;
+    const details=Array.isArray(data?.variants_detailed)?data.variants_detailed:[],special=edition(c)==='first'||shadowless(c);
+    const matching=details.filter(v=>{const first=(v.stamp||[]).includes('1st-edition')||v.subtype==='first-edition',shadow=v.subtype==='shadowless';return v.type===type&&(!v.size||v.size==='standard')&&first===(edition(c)==='first')&&shadow===shadowless(c)&&(!v.subtype||['unlimited','shadowless','first-edition'].includes(v.subtype))&&!(v.stamp||[]).some(x=>x!=='1st-edition');});
+    const detailed=matching.length===1?matching[0]:null;
+    if(special&&!detailed?.pricing?.cardmarket)return null;
+    let cm=detailed?.pricing?.cardmarket||data?.pricing?.cardmarket;if(!cm||(cm.unit||'EUR')!=='EUR')return null;
+    if(special&&details.some(v=>v!==detailed&&v.pricing?.cardmarket?.idProduct===cm.idProduct&&JSON.stringify([v.type,v.subtype,v.stamp])!==JSON.stringify([detailed.type,detailed.subtype,detailed.stamp])))return null;
+    let suffix='';
+    if(detailed?.pricing?.cardmarket){if(type==='reverse'){const shared=details.some(v=>v.type!==type&&v.pricing?.cardmarket?.idProduct===cm.idProduct);suffix=shared?'-holo':'';}}
+    else {if(special||data?.variants?.[type]===false)return null;if(type==='reverse'){if(!data?.variants?.reverse||data?.variants?.holo)return null;suffix='-holo';}else if(type==='holo'){if(data?.variants?.holo&&data?.variants?.normal===false)suffix='';else if(data?.variants?.reverse||data?.variants?.normal)return null;else suffix='-holo';}}
+    const preferred=['trend','avg7','avg30'].includes(metric)?metric:'trend',keys=[preferred,'trend','avg','avg7','avg30'],used=keys.find(k=>typeof cm[k+suffix]==='number'&&Number.isFinite(cm[k+suffix])&&cm[k+suffix]>0);if(!used)return null;
+    const labels={trend:'Trend',avg:'Durchschnitt',avg7:'7-Tage-Mittel',avg30:'30-Tage-Mittel'};
+    return{price:cm[used+suffix],source:'TCGdex / Cardmarket · '+variantLabel(c)+' · '+labels[used],date:priceDate(cm.updated),observedAt:new Date().toISOString(),metric:used,low:cm['low'+suffix]??null,avg7:cm['avg7'+suffix]??null,avg30:cm['avg30'+suffix]??null};
   }
+  function usdQuote(data,c){if(shadowless(c)||edition(c)==='unknown'||c.grader)return null;const tp=data?.pricing?.tcgplayer;if(!tp||(tp.unit||'USD')!=='USD')return null;const f=finish(c),first=edition(c)==='first';const key=first?(f==='Holo'?'1st-edition-holofoil':f==='Normal'?'1st-edition':null):({'Normal':'normal','Holo':'holofoil','Reverse Holo':'reverse-holofoil'})[f];if(!key)return null;const v=tp[key]?.marketPrice;if(typeof v!=='number'||!Number.isFinite(v)||v<0)return null;return{price:v,currency:'USD',variant:key,date:priceDate(tp.updated)};}
+  function ocrName(lines){const reject=/^(basic|basis|stage|phase|stufe|pokemon|pokémon|trainer|supporter|item|hp|kp|weakness|schwäche|resistance|resistenz|retreat|rückzug|ability|fähigkeit|illus|copyright|©|no\.|energy|energie|evolves|entwickelt|from|von|regel)(?:\s|$)/i;return lines.map(x=>x.replace(/^(?:BASIC|BASIS|STAGE\s*[12]|PHASE\s*[12]|STUFE\s*[12])\s*/i,'').replace(/\s*(?:(?:HP|KP|PS)\s*\d+|\d+\s*(?:HP|KP|PS)).*$/i,'').replace(/[^\p{L}\p{N}♀♂'.: −-]/gu,' ').trim()).find(x=>x.length>=2&&x.length<=48&&!reject.test(x)&&(/[\p{L}]{3}/u.test(x)||/[\p{Script=Han}\p{Script=Hangul}\p{Script=Hiragana}\p{Script=Katakana}]{2}/u.test(x))&&!/^\d|\d{3}/.test(x))||'';}
+  function ocrNumber(text){const original=numberFrom(text);if(original)return original;return numberFrom(String(text).replace(/([0-9OIl|]{1,4})\s*\/\s*([0-9OIl|]{1,4})/g,(_,a,b)=>a.replace(/[O]/g,'0').replace(/[Il|]/g,'1')+'/'+b.replace(/[O]/g,'0').replace(/[Il|]/g,'1')));}
   function validateBackup(data) {
     if (!data || !['pokescan-backup-v1','pokescan-backup-v2','pokescan-backup-v3','pokescan-backup-v4'].includes(data.format) || !Array.isArray(data.cards) || data.cards.length > 15000) throw Error('Unbekanntes oder zu großes Backup.');
     const ids = new Set();
@@ -42,7 +54,7 @@
     const extras = data.extras && typeof data.extras==='object' ? data.extras : null;
     return {cards,albums,photos,extras};
   }
-  const api = {norm,collectorId,numberFrom,similarity,edition,finish,shadowless,duplicateKey,variantLabel,priceQuote,validateBackup};
+  const api = {norm,collectorId,numberFrom,similarity,edition,finish,shadowless,duplicateKey,variantLabel,priceQuote,priceDate,usdQuote,ocrName,ocrNumber,validateBackup};
   root.PokeCore = api;
   if(typeof module!=='undefined')module.exports=api;
 })(globalThis);

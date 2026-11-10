@@ -1,3 +1,7 @@
+# Version 2.1
+
+Kartenvorschläge, lokaler OCR-Ablauf, 15 OCR-Sprach-/Schriftvarianten, automatischer und manueller Perspektivzuschnitt, eigene Auswahlmenüs, Variantenpreise und Scan-Einstellungen. Details und Prüfgrenzen: [UPDATE-2.1.md](UPDATE-2.1.md).
+
 # PokéScan 2.0
 
 ## Oberfläche und Bedienung

@@ -1,3 +1,8 @@
+POKÉSCAN 2.1
+
+Aktuelle Installation, Änderungen, Sprachmodelle und Testgrenzen: UPDATE-2.1.md
+Die Hinweise dort ersetzen abweichende Angaben aus älteren Versionen unten.
+
 PokéScan 2.0 — Deine Sammlung, im Blick
 ======================================
 Weiterentwicklung der bereitgestellten Version 1.2. Stand: 10.11.2026.
