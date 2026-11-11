@@ -1,0 +1,113 @@
+/* Calm album navigation, obvious favorite state and large touch targets. */
+:root{--favorite:var(--accent)}
+button,a,input,textarea,summary{touch-action:manipulation}
+button{cursor:pointer}
+button:disabled{cursor:default}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.icon-button,.nav-icon{width:44px;height:44px;min-width:44px;min-height:44px;flex-shrink:0}
+.nav-icon .ico{width:22px;height:22px}
+.heart{width:44px;height:44px;z-index:2;box-shadow:0 2px 10px #0002;background:color-mix(in srgb,var(--panel) 95%,transparent)}
+.heart .ico{width:23px;height:23px}
+.heart.on,.icon-button.liked{color:var(--favorite);border-color:var(--favorite);background:color-mix(in srgb,var(--favorite) 16%,var(--panel));box-shadow:0 0 0 2px color-mix(in srgb,var(--favorite) 12%,transparent)}
+.heart.on .ico,.icon-button.liked .ico{fill:currentColor}
+.is-favorite{border-color:color-mix(in srgb,var(--favorite) 60%,var(--line))}
+.is-favorite>.card-open .card-info{background:linear-gradient(110deg,color-mix(in srgb,var(--favorite) 7%,var(--panel)),var(--panel))}
+.binder-favorite{position:absolute;top:5px;right:5px;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:var(--panel);color:var(--favorite);z-index:2;pointer-events:none}
+.binder-favorite .ico{width:17px;height:17px}
+#albums.viewing-album>.section-head,#albums.viewing-album>p,#albums.viewing-album>.album-help{display:none}
+.album-detail-head{display:flex;align-items:center;gap:12px;margin:0 0 20px}
+.album-detail-head h2{flex:1;min-width:0;margin:0;overflow-wrap:anywhere;font-size:27px;letter-spacing:-.6px}
+.album-actionbar{display:flex;gap:10px;margin:16px 0}
+.album-actionbar .btn{min-height:48px;display:flex;align-items:center;justify-content:center;gap:8px;margin:0}
+.album-actionbar #albumAddCards{flex:1}
+.album-actionbar #arrangeAlbum{flex:0 0 auto}
+#arrangeAlbum[aria-pressed=true]{background:var(--accent);color:var(--ink);border-color:var(--accent)}
+.binder-tools{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:20px 0}
+#arrangeHint{background:var(--soft);border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));border-radius:12px;padding:13px 15px;line-height:1.65;min-height:52px;color:var(--text);font-size:13px}
+.arrange-controls{display:flex;gap:5px;padding:6px;border-top:1px solid var(--line);width:100%;box-sizing:border-box;background:var(--panel);border-radius:0 0 11px 11px;flex-shrink:0}
+.arrange-controls button{min-width:44px;min-height:44px;display:grid;place-items:center;background:var(--bg);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px}
+.arrange-controls .drag-handle{flex:1;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.arrange-controls .drag-handle .ico{width:25px;height:25px}
+.arrange-controls .position-handle .ico{width:19px;height:19px}
+.arrange-controls .position-handle{flex:0 0 44px}
+.arrange-controls button:hover{border-color:var(--accent);color:var(--accent)}
+.arrange-card{position:relative;overflow:visible!important;isolation:isolate}
+.arrange-card .card-open{border-radius:14px 14px 0 0;overflow:hidden}
+.arrange-card .card-art img,.binder-slot.arrange-card img{user-select:none;-webkit-user-drag:none;pointer-events:none}
+.arrange-card.picked-card{outline:3px solid var(--accent);outline-offset:2px}
+.arrange-card.picked-card .drag-handle{background:var(--accent);color:var(--ink)}
+.arrange-card.drag-source{opacity:.40}
+.arrange-card.drop-before:before,.arrange-card.drop-after:after{content:'';position:absolute;top:0;bottom:0;width:4px;border-radius:3px;background:var(--accent);box-shadow:0 0 0 2px var(--bg);z-index:6;pointer-events:none}
+.arrange-card.drop-before:before{left:-8px}.arrange-card.drop-after:after{right:-8px}
+.arrange-card.drop-empty{outline:3px dashed var(--accent);background:var(--soft)}
+.album-drag-ghost{position:fixed;top:0;left:0;width:112px;height:158px;border:2px solid var(--accent);border-radius:12px;padding:6px;background:var(--panel);box-shadow:0 10px 30px #0006;display:flex;flex-direction:column;align-items:center;pointer-events:none;z-index:90;opacity:.96}
+.album-drag-ghost img{width:100%;height:115px;object-fit:contain;border-radius:7px;min-height:0}
+.album-drag-ghost>.ico{flex:1;width:50px;height:90px;color:var(--muted)}
+.album-drag-ghost b{font-size:11px;line-height:1.4;width:100%;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:4px}
+.album-dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}
+.page-hover{outline:3px solid var(--accent);background:var(--soft)}
+.binder-slot.arrange-card{display:flex;flex-direction:column;overflow:visible;aspect-ratio:auto;min-height:165px}
+.binder-slot.arrange-card>b,.binder-slot.arrange-card .binder-card-target>b{position:static;display:block;width:100%;max-width:100%;padding:4px 5px;box-sizing:border-box;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.binder-slot.arrange-card>img{aspect-ratio:63/88;min-height:0;width:100%;max-height:180px;flex:1;object-fit:contain}
+.binder-slot.arrange-card .arrange-controls{gap:3px;padding:4px}
+.binder-slot.arrange-card .arrange-controls button{min-height:44px;min-width:30px;flex:1}
+.binder-slot.arrange-card .arrange-controls .position-handle{flex:0 0 34px}
+.binder-slot.arrange-card .drag-handle .ico{width:20px;height:20px}
+.binder-card-target{border:0;padding:0;background:none;color:var(--text);width:100%;min-width:0;flex:1;display:flex;flex-direction:column;align-items:center;border-radius:9px 9px 0 0;overflow:hidden}
+.binder-card-target img{width:100%;aspect-ratio:63/88;min-height:0;object-fit:contain;max-height:180px}
+.binder-nav{gap:12px;justify-content:center}
+.binder-nav span{min-width:115px;text-align:center}
+#binderPage>.empty{grid-column:1/-1;aspect-ratio:auto}
+.album-add-dialog{width:min(600px,calc(100vw - 24px));max-height:85dvh;overflow:hidden}
+.album-add-dialog[open]{display:flex;flex-direction:column}
+.album-add-dialog>.ui-dialog-head,.album-add-dialog>input,.album-add-footer{flex-shrink:0}
+.album-add-list{min-height:80px;overflow:auto;overscroll-behavior:contain;flex:1;margin:8px -3px;padding:3px}
+.album-add-option{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0;min-height:76px;cursor:pointer}
+.album-add-option:has(input:checked){border-color:var(--accent);background:var(--soft)}
+.album-add-option input{width:20px;height:20px;flex:0 0 20px;margin:0;accent-color:var(--accent)}
+.album-add-option img{width:40px;height:56px;object-fit:contain;flex:0 0 40px}
+.album-add-option span{flex:1;min-width:0;display:grid;gap:5px}
+.album-add-option b{font-size:14px;color:var(--text);overflow-wrap:anywhere}
+.album-add-option small{font-size:11px;color:var(--muted);line-height:1.5}
+.album-add-option>.ico{color:var(--favorite);width:18px}
+.album-add-option .card-placeholder{width:40px;height:56px;min-width:40px;font-size:0;padding:0}.album-add-option .card-placeholder .ico{width:20px}
+.album-add-footer{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:14px;margin-top:8px}
+.album-add-footer .btn{margin:0;min-height:48px;flex:1;font-size:12px}
+.empty-copy{font-size:14px;line-height:1.65;color:var(--muted);padding:12px}
+.detail-more{flex:1 0 100%;padding-top:8px;border-top:1px solid var(--line);margin-top:5px}
+.detail-more summary{font-size:13px;color:var(--muted);padding:12px 0;min-height:44px;cursor:pointer}
+.more-action-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.more-action-grid .btn{flex:1 1 145px}
+.detail-extra{margin:12px 0}
+.detail-extra summary{font-size:13px}
+#detailRead>.detail-line:nth-child(-n+6){font-size:14px}
+#detailTitle{overflow-wrap:anywhere}
+#editForm .save-bar{z-index:5}
+#editForm .btn{min-height:48px}
+#favorites h1 .ico{color:var(--favorite)}
+@media(max-width:760px){
+ .album-detail-head h2{font-size:24px}
+ .album-actionbar{gap:8px}
+ .album-actionbar .btn{font-size:12px;padding:12px 10px}
+ .album-actionbar #arrangeAlbum{min-width:105px}
+ .binder-tools{align-items:flex-start;flex-direction:column;gap:12px}
+ .binder-tools .segmented{width:100%;display:flex}
+ .binder-tools .segmented button{flex:1;font-size:12px;min-height:44px}
+ .binder-slot.arrange-card .arrange-controls .position-handle{flex-basis:30px}
+ .binder-page{gap:9px;padding:9px}
+ .binder-slot.arrange-card{min-height:150px}
+ .album-add-dialog{margin:auto auto 8px;border-radius:20px;padding:18px;max-height:88dvh;padding-bottom:calc(18px + env(safe-area-inset-bottom))}
+ #cardDialog{max-height:94dvh}
+ .detail-actions>.btn{flex:1 1 120px;min-height:48px}
+ #cardForm>.save-bar{box-shadow:0 -8px 18px var(--bg)}
+ #toast{font-size:13px;max-width:calc(100vw - 24px);width:max-content;line-height:1.5;box-sizing:border-box;padding:12px 15px}
+ #toast button{min-height:40px;padding:8px 10px}
+}
+@media(prefers-reduced-motion:reduce){.album-drag-ghost{transition:none}}
+
+#cardDialog.is-editing .photo-replace{display:none}
+
+.album-drag-ghost canvas{width:100%;height:115px;object-fit:contain;border-radius:7px}
+.binder-slot.arrange-card .arrange-controls button{min-width:44px}
+.binder-slot.arrange-card .arrange-controls .position-handle{flex:0 0 44px}
+@media(max-width:350px){#binderPage:has(.arrange-card){grid-template-columns:repeat(2,minmax(0,1fr))}}

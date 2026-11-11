@@ -1,3 +1,9 @@
+# Version 2.3
+
+Neue Albumsteuerung mit Vorschau, Zielmarkierung, Antippen, Positionswahl, Rückgängig und Mehrfachzuordnung. Gefüllte Favoritenherzen, Symbolnavigation und vereinfachte Kartendetails.
+
+Details: UPDATE-2.3.md · Prüfung: TESTS-2.3.md
+
 # Version 2.2
 
 Vereinfachtes Hinzufügen und Bearbeiten, robuste Fotoübernahme, automatische Sprachwahl und eigene Albumreihenfolgen mit Ziehgriffen. Details: UPDATE-2.2.md.

@@ -55,7 +55,13 @@
   }
   function moveInAlbum(list,id,index){
     const ids=list.map(c=>typeof c==='string'?c:c.id),from=ids.indexOf(id);
-    if(from<0)return ids;ids.splice(from,1);ids.splice(Math.max(0,Math.min(ids.length,index)),0,id);return ids;
+    if(from<0||!Number.isFinite(index))return ids;index=Math.trunc(index);ids.splice(from,1);ids.splice(Math.max(0,Math.min(ids.length,index)),0,id);return ids;
+  }
+  function albumDropIndex(list,id,targetId,after=false){
+    const ids=list.map(c=>typeof c==='string'?c:c.id),from=ids.indexOf(id);
+    if(from<0)return -1;if(targetId===id)return from;
+    const rest=ids.filter(x=>x!==id),target=rest.indexOf(targetId);
+    return target<0?-1:target+(after?1:0);
   }
   function validateBackup(data) {
     if (!data || !['pokescan-backup-v1','pokescan-backup-v2','pokescan-backup-v3','pokescan-backup-v4'].includes(data.format) || !Array.isArray(data.cards) || data.cards.length > 15000) throw Error('Unbekanntes oder zu großes Backup.');
@@ -72,7 +78,7 @@
     const extras = data.extras && typeof data.extras==='object' ? data.extras : null;
     return {cards,albums,photos,extras};
   }
-  const api = {norm,collectorId,numberFrom,similarity,edition,finish,shadowless,duplicateKey,variantLabel,priceQuote,priceDate,usdQuote,ocrName,ocrNumber,resolveOCRTitle,albumCards,moveInAlbum,validateBackup};
+  const api = {norm,collectorId,numberFrom,similarity,edition,finish,shadowless,duplicateKey,variantLabel,priceQuote,priceDate,usdQuote,ocrName,ocrNumber,resolveOCRTitle,albumCards,moveInAlbum,albumDropIndex,validateBackup};
   root.PokeCore = api;
   if(typeof module!=='undefined')module.exports=api;
 })(globalThis);

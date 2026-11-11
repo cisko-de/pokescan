@@ -1,3 +1,7 @@
+POKÉSCAN 2.3
+Aktuelles Update: UPDATE-2.3.md
+Testbericht: TESTS-2.3.md
+
 POKÉSCAN 2.2
 Aktuelles Update: UPDATE-2.2.md
 
