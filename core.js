@@ -24,8 +24,8 @@
     if(c.grader||edition(c)==='unknown')return null;
     const f=finish(c),type=({'Normal':'normal','Holo':'holo','Reverse Holo':'reverse'})[f];if(!type)return null;
     const details=Array.isArray(data?.variants_detailed)?data.variants_detailed:[],special=edition(c)==='first'||shadowless(c);
-    const matching=details.filter(v=>{const first=(v.stamp||[]).includes('1st-edition')||v.subtype==='first-edition',shadow=v.subtype==='shadowless';return v.type===type&&(!v.size||v.size==='standard')&&first===(edition(c)==='first')&&shadow===shadowless(c)&&(!v.subtype||['unlimited','shadowless','first-edition'].includes(v.subtype))&&!(v.stamp||[]).some(x=>x!=='1st-edition');});
-    const detailed=matching.length===1?matching[0]:null;
+    const matching=details.filter(v=>{const first=(v.stamp||[]).includes('1st-edition')||v.subtype==='first-edition',shadow=v.subtype==='shadowless';return v.type===type&&(!v.foil||['standard','holo','reverse'].includes(String(v.foil).toLowerCase()))&&(!v.size||v.size==='standard')&&first===(edition(c)==='first')&&shadow===shadowless(c)&&(!v.subtype||['unlimited','shadowless','first-edition'].includes(v.subtype))&&!(v.stamp||[]).some(x=>x!=='1st-edition');});
+    if(matching.length>1)return null;const detailed=matching.length===1?matching[0]:null;
     if(special&&!detailed?.pricing?.cardmarket)return null;
     let cm=detailed?.pricing?.cardmarket||data?.pricing?.cardmarket;if(!cm||(cm.unit||'EUR')!=='EUR')return null;
     if(special&&details.some(v=>v!==detailed&&v.pricing?.cardmarket?.idProduct===cm.idProduct&&JSON.stringify([v.type,v.subtype,v.stamp])!==JSON.stringify([detailed.type,detailed.subtype,detailed.stamp])))return null;
@@ -50,7 +50,7 @@
   }
   function albumCards(cards,album){
     const related=cards.filter(c=>c.albumIds?.includes(album.id));
-    const order=new Map((Array.isArray(album.cardOrder)?album.cardOrder:[]).map((id,i)=>[id,i]));
+    const order=new Map((album.freeSlots&&Array.isArray(album.slots)?album.slots.filter(Boolean):Array.isArray(album.cardOrder)?album.cardOrder:[]).map((id,i)=>[id,i]));
     return related.sort((a,b)=>(order.get(a.id)??Infinity)-(order.get(b.id)??Infinity));
   }
   function moveInAlbum(list,id,index){
@@ -64,7 +64,7 @@
     return target<0?-1:target+(after?1:0);
   }
   function validateBackup(data) {
-    if (!data || !['pokescan-backup-v1','pokescan-backup-v2','pokescan-backup-v3','pokescan-backup-v4'].includes(data.format) || !Array.isArray(data.cards) || data.cards.length > 15000) throw Error('Unbekanntes oder zu großes Backup.');
+    if (!data || !['pokescan-backup-v1','pokescan-backup-v2','pokescan-backup-v3','pokescan-backup-v4','pokescan-backup-v5'].includes(data.format) || !Array.isArray(data.cards) || data.cards.length > 15000) throw Error('Unbekanntes oder zu großes Backup.');
     const ids = new Set();
     const cards = data.cards.map(c => {
       if (!c || typeof c.id!=='string' || !c.id || ['__proto__','prototype','constructor'].includes(c.id) || ids.has(c.id) || typeof c.name!=='string' || !c.name.trim() || c.name.length>150 || !Number.isInteger(Number(c.quantity)) || Number(c.quantity)<1 || Number(c.quantity)>9999) throw Error('Backup enthält ungültige oder doppelte Karteneinträge. Es wurde nichts ersetzt.');

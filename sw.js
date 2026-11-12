@@ -1,6 +1,6 @@
 /* App shell and viewed reference images only; collection and photos live separately. */
-const SHELL='pokescan-shell-v23',IMAGES='pokescan-images-v2';
-const ASSETS=['./','./index.html','./style.css','./scan-ui.css','./experience.css','./core.js','./languages.js','./photos.js','./vision.js','./app.js','./scanner.js','./ui.js','./experience.js','./albums.js','./polish.js','./polish.css','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
+const SHELL='pokescan-shell-v31',IMAGES='pokescan-images-v2';
+const ASSETS=['./','./index.html','./style.css','./scan-ui.css','./experience.css','./core.js','./languages.js','./photos.js','./vision.js','./app.js','./scanner.js','./ui.js','./experience.js','./albums.js','./polish.js','./polish.css','./engine.js','./price-rules.js','./search.js','./market.js','./collection-tools.js','./album-tools.js','./design.js','./ai.js','./ai-worker.js','./studio.css','./personal-rules.js','./personal.js','./bulk.js','./personal.css','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(SHELL).then(cache=>cache.addAll(ASSETS))));
 self.addEventListener('message',event=>{if(event.data?.type==='ACTIVATE_UPDATE')self.skipWaiting();});
 self.addEventListener('activate',event=>event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(k=>(/^pokescan-v\d+$/.test(k)||k.startsWith('pokescan-shell-'))&&k!==SHELL).map(k=>caches.delete(k)));await self.clients.claim();})()));
