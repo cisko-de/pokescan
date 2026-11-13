@@ -7,7 +7,7 @@ showDetail=function(){$('cardDialog').classList.remove('is-editing');baseShowDet
  const extrasLabels=new Set(['Seltenheit','Status','Grading','Kaufpreis / Karte','Alben','Tags']),priceLabels=new Set(['Preisquelle','Preisstand','Letzter Abruf']);const pricing=create('details','detail-extra fold-section'),priceBody=create('div');pricing.append(create('summary','','Preisquelle & Stand'),priceBody);
  for(const row of rows){const label=row.querySelector('span')?.textContent,value=row.querySelector('strong')?.textContent;if(extrasLabels.has(label)||priceLabels.has(label)){row.remove();if(!['–','Nicht verfügbar','Nicht erfasst','Unbekannt','Nicht bewertet'].includes(value)&&(label!=='Status'||value!=='Sammlung'))(priceLabels.has(label)?priceBody:body).append(row);}}
  const anchor=read.querySelector('.history-list');if(body.children.length)read.insertBefore(more,anchor);if(priceBody.children.length)read.insertBefore(pricing,anchor);
- $('detailActions').querySelector('details').open=false;syncDetailFavorite();
+ const actionFold=$('detailActions').querySelector('details');if(actionFold)actionFold.open=false;syncDetailFavorite();
 };
 let editSnapshot=null;
 const editValues=()=>JSON.stringify([...$('editForm').querySelectorAll('input,textarea,select')].map(el=>[el.id||el.value,el.type==='checkbox'?el.checked:el.value]));
