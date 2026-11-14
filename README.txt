@@ -1,5 +1,5 @@
-POKÉSCAN 3.2
-Stand: 13.11.2026
+POKÉSCAN 3.3
+Stand: 14.11.2026
 
 Kostenlose statische PWA für Android, iOS und Desktop. Kein Build, kein Konto und
 kein eigener Server nötig. Die Sammlung bleibt lokal auf deinem Gerät.
@@ -25,10 +25,11 @@ Dann http://127.0.0.1:8080 öffnen. Nicht per Datei-Doppelklick starten.
 Alternativ Start-Windows.cmd bzw. start.sh verwenden.
 
 ANLEITUNGEN
-UPDATE-3.2.md: neue Funktionen, Bedienung und Installation
+UPDATE-3.3.md: neue Funktionen, Bedienung und Installation
 KONTEN-UND-APIS.md: Konten, Geräteabgleich und passende APIs
+PREISQUELLEN-3.3.md: aktuelle Preisquellen und externe Grenzen
 PREISDATEN.md: Preisquellen, Importe, Grading und Grenzen
-TESTS-3.2.md: ausgeführte Tests und nicht bestätigte Live-/Gerätefunktionen
+TESTS-3.3.md: ausgeführte Tests und nicht bestätigte Live-/Gerätefunktionen
 
 Preise und Erkennung hängen von verfügbaren Drittanbieterdaten ab. Es gibt
 keinen angeschlossenen vollständigen PSA-/Verkaufsfeed. Zusätzliche Verkaufs-
